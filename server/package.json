@@ -1,0 +1,27 @@
+{
+  "name": "collaborative-white-board",
+  "version": "1.0.0",
+  "description": "A collaborative whiteboard application using Express and Socket.IO",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "collaborative",
+    "whiteboard",
+    "socket.io",
+    "express"
+  ],
+  "author": "Yashh",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "socket.io": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
