@@ -8,14 +8,14 @@ const server = createServer(app);
 
 // Enable CORS
 app.use(cors({
-    origin: '*', // Allow requests from this origin
+    origin: process.env.ORIGIN, // Allow requests from this origin
     credentials: true // If you want to allow cookies or credentials
 }));
 
 // Initialize Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: '*',
+        origin: process.env.ORIGIN,
         methods: ["GET", "POST"],
         credentials: true
     }
