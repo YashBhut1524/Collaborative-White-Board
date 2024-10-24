@@ -8,10 +8,11 @@ const server = createServer(app);
 
 // Enable CORS
 app.use(cors({
-  origin: process.env.ORIGIN, // Allow requests from this origin
-  credentials: true // If you want to allow cookies or credentials
+    origin: process.env.ORIGIN, // Allow requests from this origin
+    credentials: true // If you want to allow cookies or credentials
 }));
 
+// Initialize Socket.IO
 const io = new Server(server, {
     cors: {
         origin: process.env.ORIGIN,
@@ -20,20 +21,33 @@ const io = new Server(server, {
     }
 });
 
+// Handle socket connection
 io.on('connection', (socket) => {
     console.log('New connection:', socket.id);
 
-    // Handle canvas data
+    // Handle canvas data from clients
     socket.on('canvas-data', (data) => {
         socket.broadcast.emit('canvas-data', data);
     });
 
-    // Handle clearing the canvas
+    // Handle clear canvas event
     socket.on('clear-canvas', () => {
-        socket.broadcast.emit('clear-canvas'); // Emit an event to all other clients
+        socket.broadcast.emit('clear-canvas');
+    });
+
+    // Handle disconnection
+    socket.on('disconnect', () => {
+        console.log('Disconnected:', socket.id);
     });
 });
 
-server.listen(process.env.PORT, () => {
-    console.log('Server running on port 5011');
+// Define API routes if needed
+app.get('/api/status', (req, res) => {
+    res.send({ message: 'Server is running' });
+});
+
+// Start the server
+const PORT = process.env.PORT || 5011;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
