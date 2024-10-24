@@ -7,15 +7,22 @@ const app = express();
 const server = createServer(app);
 
 // Enable CORS
+const allowedOrigins = ['https://collaborative-white-board-wumo.vercel.app'];
 app.use(cors({
-    origin: process.env.ORIGIN, // Allow requests from this origin
-    credentials: true // If you want to allow cookies or credentials
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
 
 // Initialize Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: process.env.ORIGIN,
+        origin: allowedOrigins,
         methods: ["GET", "POST"],
         credentials: true
     }
