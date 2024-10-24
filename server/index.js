@@ -8,7 +8,7 @@ const server = createServer(app);
 
 // Enable CORS
 app.use(cors({
-    origin: process.env.ORIGIN, // Allow requests from this origin
+    origin: '*', // Allow requests from this origin
     credentials: true // If you want to allow cookies or credentials
 }));
 
