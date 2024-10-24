@@ -15,7 +15,7 @@ app.use(cors({
 // Initialize Socket.IO
 const io = new Server(server, {
     cors: {
-        origin: process.env.ORIGIN,
+        origin: '*',
         methods: ["GET", "POST"],
         credentials: true
     }
